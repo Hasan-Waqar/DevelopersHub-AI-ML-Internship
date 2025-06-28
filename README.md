@@ -1,43 +1,114 @@
-# DevelopersHub Corporation - AI/ML Engineering Internship Tasks
+# DevelopersHub Corporation - AI/ML Engineering Internship Project Portfolio
 
-Welcome to the repository for my completed tasks for the AI/ML Engineering Internship at DevelopersHub Corporation. This collection showcases a range of projects, from fundamental data analysis and classical machine learning to modern large language model (LLM) implementation.
+## Introduction
 
-Each task is contained within its own folder, complete with the source notebook and a dedicated `README.md` file detailing the specific objectives, methods, and outcomes of that project.
+This repository documents the projects completed during my AI/ML Engineering Internship at DevelopersHub Corporation. The tasks cover a diverse range of machine learning concepts, from fundamental data analysis and classical regression/classification to modern applications of Large Language Models (LLMs) through prompt engineering.
 
----
-
-## Completed Tasks Summary
-
-### [Task 1: Exploring and Visualizing the Iris Dataset](./Task-1-Iris-EDA/)
-
--   **Objective:** A foundational exercise in loading, inspecting, and visualizing a dataset to understand its structure, distributions, and feature relationships.
--   **Skills Demonstrated:** Data loading (Pandas), descriptive statistics, and data visualization (Matplotlib, Seaborn).
--   **Outcome:** Successfully analyzed the Iris dataset, identifying key correlations and the clear separability of the `setosa` species through visual plots.
-
-### [Task 2: Predict Future Stock Prices (Short-Term)](./Task-2-Stock-Prediction/)
-
--   **Objective:** To build a time-series regression model to predict the next day's closing stock price for a selected ticker (AAPL).
--   **Skills Demonstrated:** API data fetching (`yfinance`), time-series feature engineering, regression modeling (`RandomForestRegressor`), and model evaluation.
--   **Outcome:** Developed a model with a high R-squared score (>0.98), accurately tracking the next-day price movements. The analysis also acknowledged the limitations of such a simplified model for real-world trading.
-
-### [Task 3: Heart Disease Prediction](./Task-3-Heart-Disease/)
-
--   **Objective:** To build and optimize a robust binary classification model to predict the presence of heart disease from patient data.
--   **Skills Demonstrated:** Advanced data cleaning for a messy, real-world dataset, one-hot encoding, model selection (baseline vs. advanced), hyperparameter tuning (`GridSearchCV`), and in-depth evaluation (Accuracy, Confusion Matrix, ROC-AUC).
--   **Outcome:** After a rigorous data cleaning and model optimization process, the final tuned Random Forest model achieved **85% accuracy** and an **AUC of 0.91**, showcasing a strong ability to distinguish between patient outcomes.
-
-### [Task 4: General Health Query Chatbot](./Task-4-Health-Chatbot/)
-
--   **Objective:** To create a conversational AI that can answer general health questions safely and effectively using a Large Language Model (LLM).
--   **Skills Demonstrated:** Prompt engineering, implementing safety filters, working with LLMs via the `transformers` library, and 4-bit quantization for efficient model deployment.
--   **Outcome:** The final chatbot successfully provided informative answers while strictly adhering to a critical safety protocol: never giving direct medical advice and always including a disclaimer. This highlighted the importance of responsible AI development.
-
-### [Task 6: House Price Prediction](./Task-6-House-Price-Prediction/)
-
--   **Objective:** To develop a regression model capable of predicting house prices based on various property features.
--   **Skills Demonstrated:** Preprocessing of mixed data types (numerical and categorical), building a `scikit-learn` pipeline, and training a powerful ensemble model (`GradientBoostingRegressor`).
--   **Outcome:** A predictive model was successfully built and evaluated using a real-world dataset (King County). Feature importance analysis identified `sqft_living`, `grade`, and `lat` (latitude) as the most influential factors, aligning with real-world intuition.
+Each project is self-contained in its respective folder, including the source Jupyter Notebook. This report provides a consolidated summary of the objectives, methodologies, key findings, and challenges encountered for each task.
 
 ---
 
-This portfolio represents my ability to tackle diverse problems in the AI/ML space and my commitment to producing clean, well-documented, and effective solutions.
+## Table of Contents
+1.  [Task 1: Exploring and Visualizing the Iris Dataset](#task-1-exploring-and-visualizing-the-iris-dataset)
+2.  [Task 2: Stock Price Prediction (Short-Term)](./#task-2-stock-price-prediction-short-term)
+3.  [Task 3: Heart Disease Prediction](./#task-3-heart-disease-prediction)
+4.  [Task 4: General Health Query Chatbot](./#task-4-general-health-query-chatbot)
+5.  [Task 6: House Price Prediction](./#task-6-house-price-prediction)
+
+---
+
+## Task 1: Exploring and Visualizing the Iris Dataset
+
+-   **Objective:** To perform a foundational Exploratory Data Analysis (EDA) on the classic Iris dataset to understand its structure and identify key feature relationships.
+-   **Methodology:**
+    -   Loaded the dataset using the `seaborn` library.
+    -   Used `pandas` for initial inspection (`.info()`, `.describe()`).
+    -   Created visualizations using `matplotlib` and `seaborn`, including pair plots, histograms, and box plots to analyze distributions and correlations.
+-   **Key Findings:**
+    -   The dataset was found to be clean with no missing values.
+    -   A strong positive correlation exists between `petal_length` and `petal_width`.
+    -   The `setosa` species is linearly separable from `versicolor` and `virginica`, making the dataset highly suitable for classification tasks.
+-   **Challenges:** This was a straightforward introductory task with no significant challenges.
+
+---
+
+## Task 2: Stock Price Prediction (Short-Term)
+
+-   **Objective:** To build a time-series regression model to predict the next day's closing price for Apple Inc. (AAPL) stock.
+-   **Methodology:**
+    -   Fetched historical daily stock data using the `yfinance` API.
+    -   Engineered the target variable by shifting the `Close` price to create a supervised learning problem.
+    -   Split the data chronologically to prevent look-ahead bias.
+    -   Trained a `RandomForestRegressor` model using `Open`, `High`, `Low`, `Close`, and `Volume` as features.
+    -   Evaluated the model using R-squared and visualized the predictions against actual prices.
+-   **Key Findings:**
+    -   The model achieved an exceptionally high R-squared score (>0.98), indicating it could track the next-day price with high accuracy.
+    -   This high performance is primarily due to the strong auto-correlation of daily stock prices (i.e., tomorrow's price is very close to today's).
+    -   The final analysis concludes that while successful as an exercise, this simple model is not suitable for real-world trading due to its lack of external market indicators and sentiment analysis.
+
+---
+
+## Task 3: Heart Disease Prediction
+
+-   **Objective:** To develop and optimize a robust binary classification model to predict the presence of heart disease.
+-   **Methodology:**
+    -   Used the Heart Disease UCI dataset from Kaggle, which presented significant data quality issues.
+    -   Conducted an intensive data cleaning process, handling non-standard missing values (`?`), imputing data, and correctly separating categorical and numerical features.
+    -   A `RandomForestClassifier` was chosen after a baseline Logistic Regression model performed poorly.
+    -   Optimized the model using `GridSearchCV` to find the best hyperparameters.
+    -   Evaluated the final model on accuracy, precision, recall, F1-score, and ROC-AUC.
+-   **Key Findings:**
+    -   The initial model was heavily biased, predicting only the majority class.
+    -   After switching to a Random Forest and performing hyperparameter tuning, the final model's performance improved dramatically, achieving **85% accuracy** and an **AUC of 0.91**.
+    -   The final model was well-balanced and demonstrated a strong ability to correctly identify both positive and negative cases.
+-   **Challenges:**
+    -   The primary challenge was the data cleaning phase. The dataset contained empty columns and non-standard missing values, which caused initial models to fail entirely. This required a careful, evidence-based debugging process to create a working data pipeline.
+
+---
+
+## Task 4: General Health Query Chatbot
+
+-   **Objective:** To build a conversational AI using a Large Language Model (LLM) that can answer general health questions in a safe and helpful manner.
+-   **Methodology:**
+    -   Utilized an open-source, instruction-tuned LLM (`Mistral-7B-Instruct-v0.2` or `Zephyr-7B-Beta`) via the Hugging Face `transformers` library.
+    -   Applied **prompt engineering** to define the chatbot's persona and enforce safety rules.
+    -   A critical **safety filter** was implemented in the prompt, instructing the model to never provide direct medical advice and to always include a disclaimer recommending consultation with a healthcare professional.
+    -   Used 4-bit quantization to efficiently run the large model on a free Google Colab GPU.
+-   **Key Findings:**
+    -   The prompt-engineered chatbot successfully provided informative and contextually relevant answers.
+    -   The safety filter was highly effective, as the chatbot correctly refused to give direct medical advice and consistently appended the required disclaimer.
+-   **Challenges:**
+    -   The setup process involved handling gated model access on Hugging Face and resolving environment-specific library conflicts (`bitsandbytes`), which are common hurdles in practical LLM application.
+
+---
+
+## Task 6: House Price Prediction
+
+-   **Objective:** To create a regression model to predict house prices based on property features from the King County House Sales dataset.
+-   **Methodology:**
+    -   Preprocessed the data by dropping non-predictive columns and defining the feature set (`X`) and target (`y`).
+    -   Since the features were all numerical, `StandardScaler` was applied to standardize their scales.
+    -   Trained a `GradientBoostingRegressor`, a powerful ensemble model well-suited for tabular data.
+    -   Evaluated the model using Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE).
+    -   Visualized the results with a scatter plot of actual vs. predicted prices and a feature importance plot.
+-   **Key Findings:**
+    -   The model performed very well, with the visualization showing a strong, linear relationship between predicted and actual prices.
+    -   Feature importance analysis correctly identified `sqft_living`, `grade` (construction quality), and `lat` (latitude) as the most significant predictors of price, confirming that size, quality, and location are key drivers in the real estate market.
+-   **Challenges:**
+    -   An initial attempt with a randomly generated dataset resulted in a poor, underfitting model. The challenge was recognizing that the issue was with the **data quality**, not the model itself. Switching to a high-quality, real-world dataset (King County) immediately produced a successful outcome.
+ 
+
+---
+
+## Internship Summary and Key Takeaways
+
+This portfolio of projects demonstrates a comprehensive journey through key areas of modern AI and Machine Learning. The tasks progressed from fundamental data analysis to complex model optimization and the practical application of Large Language Models.
+
+**Key skills and concepts covered include:**
+-   **Data Science Fundamentals:** Exploratory Data Analysis, data cleaning, feature engineering, and visualization.
+-   **Classical Machine Learning:** Building and evaluating both regression (Tasks 2 & 6) and classification (Task 3) models.
+-   **Advanced Modeling Techniques:** Implementing powerful ensemble models like Random Forest and Gradient Boosting, and systematically optimizing them with hyperparameter tuning (`GridSearchCV`).
+-   **Generative AI & LLMs:** Applying prompt engineering to control the behavior of a pre-trained LLM and implementing critical safety filters for a real-world application (Task 4).
+-   **Problem-Solving and Debugging:** Successfully navigating and resolving complex, real-world challenges related to poor data quality and difficult software environments.
+
+The successful completion of these tasks has provided a robust, hands-on foundation in the end-to-end machine learning lifecycle. I am confident in my ability to approach new AI/ML problems with a structured, analytical, and results-oriented mindset.
